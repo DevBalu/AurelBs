@@ -54,12 +54,12 @@
 			<div class="top-menu">
 				<div class="row">
 					<div class="col-xs-2">
-						<div id="fh5co-logo"><a href="index.html">Architect<span>.</span></a></div>
+						<div id="fh5co-logo"><a href="index.php"><img src="images/logo.png"></a></div>
 					</div>
 					<div class="col-xs-10 text-right menu-1">
 						<ul>
-							<li><a href="index.html">Portfolio</a></li>
-							<li class="active"><a href="single.html">Single</a></li>
+							<li><a href="index.php">Portfolio</a></li>
+							<li class="active"><a href="single.php">Single</a></li>
 							<li class="has-dropdown"><a href="#">Dropdown</a>
 								<ul class="dropdown">
 									<li><a href="#">Infrastructure</a></li>
@@ -68,7 +68,7 @@
 									<li><a href="#">Megabuilders</a></li>
 								</ul>
 							</li>
-							<li><a href="contact.html">Contact</a></li>
+							<li><a href="contact.php">Contact</a></li>
 						</ul>
 					</div>
 				</div>
@@ -101,7 +101,7 @@
 
 				<div class="col-md-7 col-md-pull-4 image-content">
 					<div class="image-item  animate-box">
-						<img src="images/portfolio-5.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+						<img src="images/portfolio-5.jpg" class="img-responsive" alt="Free php5 Bootstrap Template by FreeHTML5.co">
 					</div>
 					<div class="image-item  animate-box">
 						<img src="images/portfolio-2.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">

@@ -54,13 +54,13 @@
 			<div class="top-menu">
 				<div class="row">
 					<div class="col-sm-2">
-						<div id="fh5co-logo"><a href="index.html">Architect<span>.</span></a></div>
+						<div id="fh5co-logo"><a href="index.php"><img src="images/logo.png"><span>.</span></a></div>
 					</div>
 					<div class="col-sm-10 text-right menu-1">
 						<ul>
-							<li><a href="index.html">Portfolio</a></li>
-							<li><a href="single.html">Single</a></li>
-							<li class="has-dropdown"><a href="single.html">Dropdown</a>
+							<li><a href="index.php">Portfolio</a></li>
+							<li><a href="single.php">Single</a></li>
+							<li class="has-dropdown"><a href="single.php">Dropdown</a>
 								<ul class="dropdown">
 									<li><a href="#">Infrastructure</a></li>
 									<li><a href="#">Residential</a></li>
@@ -68,7 +68,7 @@
 									<li><a href="#">Megabuilders</a></li>
 								</ul>
 							</li>
-							<li class="active"><a href="contact.html">Contact</a></li>
+							<li class="active"><a href="contact.php">Contact</a></li>
 						</ul>
 					</div>
 				</div>

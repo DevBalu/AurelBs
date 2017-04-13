@@ -1,3 +1,27 @@
+<?php 
+	// include connect with db fail 
+	require_once("php/connect.php");
+
+	if (!empty($con)) {
+		// get log & pass from href
+		$get_un = !empty($_GET["u"]);
+		$get_pas = !empty($_GET["p"]);
+
+		// real log&pass
+		$adm_res = $con->query("SELECT * FROM admin");
+		$res = $adm_res->fetch_assoc();
+
+		$_SESSION["username"] = $res['username'];
+		$password = $res['password'];
+	}
+	$con-close();
+
+
+
+	// print "<pre>";
+	// print_r($row);
+	// print "</pre>";
+ ?>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -9,7 +33,7 @@
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
 	<meta name="author" content="freehtml5.co" />
 
-  	<!-- Facebook and Twitter integration -->
+	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
 	<meta property="og:image" content=""/>
 	<meta property="og:url" content=""/>
@@ -52,14 +76,21 @@
 		<div class="container">
 			<div class="top-menu">
 				<div class="row">
-					<div class="col-sm-2">
-						<div id="fh5co-logo"><a href="index.html">Architect<span>.</span></a></div>
-					</div>
-					<div class="col-sm-10 text-right menu-1">
+					<div class="col-sm-4 col-sm-offset-1">
+						<div id="fh5co-logo"><a href="index.php"><img src="images/logo.png"></a></div>
+					</div><!-- END logo -->
+
+
+					<div id="fh6co-intro">
+						<div class="animate-box">
+							<h1><!-- <span>&amp;</span> Go to your dreams --></h1>
+						</div>
+					</div><!-- END fh6co-intro -->
+					<div class="col-sm-6 col-sm-offset-1 text-right menu-1">
 						<ul>
-							<li class="active"><a href="index.html">Portfolio</a></li>
-							<li><a href="single.html">Single</a></li>
-							<li class="has-dropdown"><a href="single.html">Dropdown</a>
+							<li class="active"><a href="index.php">Portfolio</a></li>
+							<li><a href="about.php">About</a></li>
+							<li class="has-dropdown"><a href="single.php">Dropdown</a>
 								<ul class="dropdown">
 									<li><a href="#">Infrastructure</a></li>
 									<li><a href="#">Residential</a></li>
@@ -67,86 +98,104 @@
 									<li><a href="#">Megabuilders</a></li>
 								</ul>
 							</li>
-							<li><a href="contact.html">Contact</a></li>
+							<li><a href="contact.php">Contact</a></li>
 						</ul>
 					</div>
-				</div>
-				
-			</div>
-		</div>
+				</div><!-- END row -->
+			</div><!-- END top-menu -->
+		</div><!-- END container -->
 	</nav>
 	<div class="container">
-		<div id="fh5co-intro">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 col-md-pull-2">
-					<h2>Best showcase for architecture &amp; interior. <span><em>by</em> <a href="http://freehtml5.co">FreeHTML5.co</a></span></h2>
-				</div>
-			</div>
-		</div>
 		<aside id="fh5co-hero">
 			<div class="flexslider">
 				<ul class="slides">
-			   	<li style="background-image: url(images/img_bg_1.jpg);">
-			   		<div class="overlay"></div>
-			   		<div class="container-fluid">
-			   			<div class="row">
-				   			<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
-				   				<div class="slider-text-inner">
-				   					<h1><a href="#">Best showcase for architecture</a></h1>
-										<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
-				   				</div>
-				   			</div>
-				   		</div>
-			   		</div>
-			   	</li>
-			   	<li style="background-image: url(images/img_bg_2.jpg);">
-			   		<div class="overlay"></div>
-			   		<div class="container-fluid">
-			   			<div class="row">
-				   			<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
-				   				<div class="slider-text-inner">
-				   					<h1><a href="#">Best showcase for architecture</a></h1>
-										<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
-				   				</div>
-				   			</div>
-				   		</div>
-			   		</div>
-			   	</li>
-			   	<li style="background-image: url(images/img_bg_3.jpg);">
-			   		<div class="overlay"></div>
-			   		<div class="container-fluid">
-			   			<div class="row">
-				   			<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
-				   				<div class="slider-text-inner">
-				   					<h1><a href="#">Best showcase for architecture</a></h1>
-										<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
-				   				</div>
-				   			</div>
-				   		</div>
-			   		</div>
-			   	</li>
-			   	<li style="background-image: url(images/img_bg_4.jpg);">
-			   		<div class="overlay"></div>
-			   		<div class="container-fluid">
-			   			<div class="row">
-				   			<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
-				   				<div class="slider-text-inner">
-				   					<h1><a href="#">Best showcase for architecture</a></h1>
-										<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
-				   				</div>
-				   			</div>
-				   		</div>
-			   		</div>
-			   	</li>	   	
-			  	</ul>
-		  	</div>
+					<li style="background-image: url(images/img_bg_1.jpg);">
+						<div class="overlay"></div>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
+									<div class="slider-text-inner">
+										<h1><a href="#">Best showcase for architecture</a></h1>
+											<h2>Free php5 templates Made by <a href="http://freever5.co/" target="_blank">free5.co</a></h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url(images/img_bg_2.jpg);">
+						<div class="overlay"></div>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
+									<div class="slider-text-inner">
+										<h1><a href="#">Best showcase for architecture</a></h1>
+											<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url(images/img_bg_3.jpg);">
+						<div class="overlay"></div>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
+									<div class="slider-text-inner">
+										<h1><a href="#">Best showcase for architecture</a></h1>
+											<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url(images/img_bg_4.jpg);">
+						<div class="overlay"></div>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
+									<div class="slider-text-inner">
+										<h1><a href="#">Best showcase for architecture</a></h1>
+											<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url(images/img_bg_6.jpg);">
+						<div class="overlay"></div>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
+									<div class="slider-text-inner">
+										<h1><a href="#">Best showcase for architecture</a></h1>
+											<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url(images/img_bg_7.jpg);">
+						<div class="overlay"></div>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
+									<div class="slider-text-inner">
+										<h1><a href="#">Best showcase for architecture</a></h1>
+											<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
 		</aside>
 		<div id="fh5co-portfolio">
 			<div class="row nopadding">
 				<div class="col-md-6 padding-right">
 					<div class="row">
 						<div class="col-md-12 animate-box">
-							<a href="single.html" class="portfolio-grid">
+							<a href="single.php" class="portfolio-grid">
 								<img src="images/portfolio-1.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
 								<div class="desc">
 									<h3>Dublin Arena Architect Project</h3>
@@ -155,7 +204,7 @@
 							</a>
 						</div>
 						<div class="col-md-12 animate-box">
-							<a href="single.html" class="portfolio-grid">
+							<a href="single." class="portfolio-grid">
 								<img src="images/portfolio-4.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
 								<div class="desc">
 									<h3>Dublin Arena Architect Project</h3>
@@ -164,7 +213,7 @@
 							</a>
 						</div>
 						<div class="col-md-12 animate-box">
-							<a href="single.html" class="portfolio-grid">
+							<a href="single.php" class="portfolio-grid">
 								<img src="images/portfolio-5.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
 								<div class="desc">
 									<h3>Dublin Arena Architect Project</h3>
@@ -179,7 +228,7 @@
 				<div class="col-md-6 padding-left">
 					<div class="row">
 						<div class="col-md-12 animate-box">
-							<a href="single.html" class="portfolio-grid">
+							<a href="single.php" class="portfolio-grid">
 								<img src="images/portfolio-2.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
 								<div class="desc">
 									<h3>Dublin Arena Architect Project</h3>
@@ -188,7 +237,7 @@
 							</a>
 						</div>
 						<div class="col-md-12 animate-box">
-							<a href="single.html" class="portfolio-grid">
+							<a href="single.php" class="portfolio-grid">
 								<img src="images/portfolio-3.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
 								<div class="desc">
 									<h3>Dublin Arena Architect Project</h3>
@@ -197,7 +246,7 @@
 							</a>
 						</div>
 						<div class="col-md-12 animate-box">
-							<a href="single.html" class="portfolio-grid">
+							<a href="single.php" class="portfolio-grid">
 								<img src="images/portfolio-6.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
 								<div class="desc">
 									<h3>Dublin Arena Architect Project</h3>
@@ -207,7 +256,7 @@
 						</div>
 
 						<div class="col-md-12 animate-box">
-							<a href="single.html" class="portfolio-grid">
+							<a href="single.php" class="portfolio-grid">
 								<img src="images/portfolio-7.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
 								<div class="desc">
 									<h3>Dublin Arena Architect Project</h3>
