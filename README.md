@@ -1,2 +1,0 @@
-# AurelBs
-Site - portfolio
