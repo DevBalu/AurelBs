@@ -1,20 +1,20 @@
 <?php 
 	// include connect with db fail 
-	require_once("php/connect.php");
+	// require_once("php/connect.php");
 
-	if (!empty($con)) {
+	// if (!empty($con)) {
 		// get log & pass from href
-		$get_un = !empty($_GET["u"]);
-		$get_pas = !empty($_GET["p"]);
+		// $get_un = !empty($_GET["u"]);
+		// $get_pas = !empty($_GET["p"]);
 
 		// real log&pass
-		$adm_res = $con->query("SELECT * FROM admin");
-		$res = $adm_res->fetch_assoc();
+		// $adm_res = $con->query("SELECT * FROM admin");
+		// $res = $adm_res->fetch_assoc();
 
-		$_SESSION["username"] = $res['username'];
-		$password = $res['password'];
-	}
-	$con-close();
+		// $_SESSION["username"] = $res['username'];
+		// $password = $res['password'];
+	// }
+	// $con->close();
 
 
 
