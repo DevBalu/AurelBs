@@ -540,6 +540,9 @@ h1, h2, h3, h4, h5, h6, figure {
   -o-transition: 0.3s;
   transition: 0.3s;
 }
+.portfolio-grid img:nth-child(1) {
+  opacity: 0.9;
+}
 .portfolio-grid img {
   position: relative;
   max-width: 100%;

@@ -27,11 +27,8 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Architect &mdash; Free Website Template, Free HTML5 Template by freehtml5.co</title>
+	<title></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Website Template by freehtml5.co" />
-	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-	<meta name="author" content="freehtml5.co" />
 
 	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
@@ -116,7 +113,6 @@
 								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
 									<div class="slider-text-inner">
 										<h1><a href="#">Best showcase for architecture</a></h1>
-											<h2>Free php5 templates Made by <a href="http://freever5.co/" target="_blank">free5.co</a></h2>
 									</div>
 								</div>
 							</div>
@@ -129,7 +125,6 @@
 								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
 									<div class="slider-text-inner">
 										<h1><a href="#">Best showcase for architecture</a></h1>
-											<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
 									</div>
 								</div>
 							</div>
@@ -142,7 +137,6 @@
 								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
 									<div class="slider-text-inner">
 										<h1><a href="#">Best showcase for architecture</a></h1>
-											<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
 									</div>
 								</div>
 							</div>
@@ -155,7 +149,6 @@
 								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
 									<div class="slider-text-inner">
 										<h1><a href="#">Best showcase for architecture</a></h1>
-											<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
 									</div>
 								</div>
 							</div>
@@ -168,7 +161,6 @@
 								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
 									<div class="slider-text-inner">
 										<h1><a href="#">Best showcase for architecture</a></h1>
-											<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
 									</div>
 								</div>
 							</div>
@@ -181,7 +173,6 @@
 								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
 									<div class="slider-text-inner">
 										<h1><a href="#">Best showcase for architecture</a></h1>
-											<h2>Free html5 templates Made by <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
 									</div>
 								</div>
 							</div>
@@ -229,7 +220,7 @@
 					<div class="row">
 						<div class="col-md-12 animate-box">
 							<a href="single.php" class="portfolio-grid">
-								<img src="images/portfolio-2.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+								<img src="images/portfolio-2.png" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
 								<div class="desc">
 									<h3>Dublin Arena Architect Project</h3>
 									<span>Building, Arena</span>
@@ -314,14 +305,12 @@
 			<div class="row copyright">
 				<div class="col-md-12 text-center">
 					<p>
-						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small> 
-						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+						<small class="block">&copy; Powered by <a href="http://devbalu.com/">"DevBalu"</a> 2017</small>
 					</p>
 					<p>
 						<ul class="fh5co-social-icons">
-							<li><a href="#"><i class="icon-twitter"></i></a></li>
-							<li><a href="#"><i class="icon-facebook"></i></a></li>
-							<li><a href="#"><i class="icon-linkedin"></i></a></li>
+							<li><a href="https://github.com/DevBalu"><i class="icon-git"></i></a></li>
+							<li><a href="https://www.linkedin.com/in/%D0%B0%D0%BD%D0%B4%D1%80%D0%B5%D0%B9-%D0%B3%D0%B5%D0%BD%D0%BE%D0%B2-61a003b3/"><i class="icon-linkedin"></i></a></li>
 							<li><a href="#"><i class="icon-dribbble"></i></a></li>
 						</ul>
 					</p>
