@@ -179,8 +179,8 @@ h1, h2, h3, h4, h5, h6, figure {
   height: 104px;
 }
 .fh5co-nav ul li a {
-  position: relative;
-  padding: 30px 15px;
+  position: relative; 
+  padding: 30px 5px;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
@@ -545,7 +545,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 .portfolio-grid img {
   position: relative;
-  max-width: 100%;
+  width: 100%;
   -webkit-transform: scale(1);
   -moz-transform: scale(1);
   -ms-transform: scale(1);

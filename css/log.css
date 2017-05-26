@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css?family=Marcellus+SC');
+body {
+	height: 100vh;
+	background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), linear-gradient(to bottom, rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg, #670d10 0%,#092756 100%);
+	font-family: 'Marcellus SC', serif;
+/*	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;*/
+}
+
+.login {
+	width: 400px;
+	font-size: 16px;
+	margin-top: 7%;
+}
+
+/* Reset top and bottom margins from certain elements */
+.login-header,
+.login p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+/* The triangle form is achieved by a CSS hack */
+.login-triangle {
+	width: 0;
+	margin-right: auto;
+	margin-left: auto;
+	border: 12px solid transparent;
+}
+
+.login-header {
+	/*background: #28d;*/
+	background: rgba(104,128,138,.4);
+	padding: 20px;
+	font-size: 1.4em;
+	font-weight: normal;
+	text-align: center;
+	text-transform: uppercase;
+	color: #fff;
+}
+
+.login-container {
+	background: #ebebeb;
+	padding: 12px;
+}
+
+/* Every row inside .login-container is defined with p tags */
+.login p {
+	padding: 12px;
+}
+
+.login input {
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	border-width: 1px;
+	border-style: solid;
+	padding: 16px;
+	outline: 0;
+	font-family: inherit;
+	font-size: 0.95em;
+}
+
+.login input[type="email"],
+.login input[type="password"] {
+	/*background: #fff;*/
+	border-color: #bbb;
+	color: #555;
+}
+
+/* Text fields' focus effect */
+.login input[type="email"]:focus,
+.login input[type="password"]:focus {
+	border-color: #888;
+}
+
+.login input[type="submit"] {
+	background: rgba(104, 128, 138, 0.8);
+	border-color: transparent;
+	color: #fff;
+	cursor: pointer;
+}
+
+.login input[type="submit"]:hover {
+	background: rgba(104, 128, 138, 0.45);
+}
+
+.login input[type="submit"]:focus {
+	border-color: rgba(104, 128, 138, 0.45);
+}
+#btn {
+	width: 100px;
+	height: 100px;
+	position: relative;
+	font-family: 'Lato', sans-serif;
+	top: 20px;
+	left: 20px;
+	background: rgba(0, 0, 0, 0.48);
+	border-radius: 50%;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-ms-align-items: center;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	cursor: pointer;
+}
+#btn:hover {
+	background: rgba(0, 0, 0, 0.3);
+	/*background: #000;*/
+	transition: .3s;
+}
+#btn:active::after{
+	transition: 2s;
+}
+#btn a {
+	text-decoration: none;
+	color: #fff !important;
+}

@@ -164,14 +164,12 @@
 			<div class="row copyright">
 				<div class="col-md-12 text-center">
 					<p>
-						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small> 
-						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+						<small class="block">&copy; Powered by <a href="http://devbalu.com/">"DevBalu"</a> 2017</small>
 					</p>
 					<p>
 						<ul class="fh5co-social-icons">
-							<li><a href="#"><i class="icon-twitter"></i></a></li>
-							<li><a href="#"><i class="icon-facebook"></i></a></li>
-							<li><a href="#"><i class="icon-linkedin"></i></a></li>
+							<li><a href="https://github.com/DevBalu"><i class="icon-git"></i></a></li>
+							<li><a href="https://www.linkedin.com/in/%D0%B0%D0%BD%D0%B4%D1%80%D0%B5%D0%B9-%D0%B3%D0%B5%D0%BD%D0%BE%D0%B2-61a003b3/"><i class="icon-linkedin"></i></a></li>
 							<li><a href="#"><i class="icon-dribbble"></i></a></li>
 						</ul>
 					</p>
