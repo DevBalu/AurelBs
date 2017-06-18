@@ -1,6 +1,22 @@
 <?php 
 	session_start();
-	// change login to logout
+	require_once("php/connect.php");
+
+	$right = "vasea";
+	// print !empty($ryght) ? "sveta" : "$right";die;
+
+	if (!empty($con)) {
+		$sql = "SELECT * FROM groups";
+		$group_query = $con->query($sql);
+
+		while ($gr_res = $group_query->fetch_object()) {
+			print "<pre>";
+			print_r($gr_res);
+			print "</pre>";
+
+		}
+	}
+
 	if(!empty($_SESSION['auth'])){
 		$log = '
 			<li><a href="php/logout.php">Logout</a></li>
@@ -10,52 +26,15 @@
 			<li><a href="log.php">Login</a></li>
 		';
 	}
-	// END change login to logout
+
 ?>
 <!DOCTYPE HTML>
 <html>
 	<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
-
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Playfair+Display" rel="stylesheet">
-	
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
-
-	<!-- Flexslider  -->
-	<link rel="stylesheet" href="css/flexslider.css">
-
-	<!-- Theme style  -->
-	<link rel="stylesheet" href="css/style.css">
-
-	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
-
+		<?php include("components/head.php"); ?>
 	</head>
 	<body>
-		
+
 	<div class="fh5co-loader"></div>
 	
 	<div id="page">
@@ -92,6 +71,7 @@
 			</div><!-- END top-menu -->
 		</div><!-- END container -->
 	</nav>
+
 	<div class="container">
 		<aside id="fh5co-hero">
 			<div class="flexslider">
@@ -176,6 +156,8 @@
 			<div class="row nopadding">
 				<div class="col-md-6 padding-right">
 					<div class="row">
+
+
 						<div class="col-md-12 animate-box">
 							<a href="single.php" class="portfolio-grid">
 								<img src="images/portfolio-1.jpg" class="img-responsive" >
@@ -185,27 +167,9 @@
 								</div>
 							</a>
 						</div>
-<!-- 						<div class="col-md-12 animate-box">
-							<a href="single." class="portfolio-grid">
-								<img src="images/portfolio-4.jpg" class="img-responsive" >
-								<div class="desc">
-									<h3>Dublin Arena Architect Project</h3>
-									<span>Building, Arena</span>
-								</div>
-							</a>
-						</div> -->
-						<div class="col-md-12 animate-box">
-							<a href="single.php" class="portfolio-grid">
-								<img src="images/portfolio-5.jpg" class="img-responsive" >
-								<div class="desc">
-									<h3>Dublin Arena Architect Project</h3>
-									<span>Building, Arena</span>
-								</div>
-							</a>
-						</div>
-						
-					</div>
-				</div>
+
+					</div><!-- END p-r row -->
+				</div><!-- END padding-right -->
 
 				<div class="col-md-6 padding-left">
 					<div class="row">
@@ -218,117 +182,21 @@
 								</div>
 							</a>
 						</div>
-						<div class="col-md-12 animate-box">
-							<a href="single.php" class="portfolio-grid">
-								<img src="images/portfolio-3.jpg" class="img-responsive" >
-								<div class="desc">
-									<h3>Dublin Arena Architect Project</h3>
-									<span>Building, Arena</span>
-								</div>
-							</a>
-						</div>
-						<div class="col-md-12 animate-box">
-							<a href="single.php" class="portfolio-grid">
-								<img src="images/portfolio-6.jpg" class="img-responsive" >
-								<div class="desc">
-									<h3>Dublin Arena Architect Project</h3>
-									<span>Building, Arena</span>
-								</div>
-							</a>
-						</div>
 
-<!-- 						<div class="col-md-12 animate-box">
-							<a href="single.php" class="portfolio-grid">
-								<img src="images/portfolio-7.jpg" class="img-responsive" >
-								<div class="desc">
-									<h3>Dublin Arena Architect Project</h3>
-									<span>Building, Arena</span>
-								</div>
-							</a>
-						</div> -->
+					</div><!-- END p-l row -->
+				</div><!-- END padding-left -->
 
-					</div>
-				</div>
-			</div>
-		</div>
+			</div><!-- END main-portfolio row -->
+		</div><!-- END portfolio -->
 	</div><!-- END container -->
 
-	<div class="container">
-		<footer id="fh5co-footer" role="contentinfo">
-			<div class="row">
-				<div class="col-md-3 fh5co-widget">
-					<h4>About Carbon</h4>
-					<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-				</div>
-				<div class="col-md-3 col-md-push-1">
-					<h4>Latest Projects</h4>
-					<ul class="fh5co-footer-links">
-						<li><a href="#">JBC Stadium</a></li>
-						<li><a href="#">T-Mobile Arena</a></li>
-						<li><a href="#">Target Field</a></li>
-						<li><a href="#">London Stadium</a></li>
-					</ul>
-				</div>
+	<!-- footer -->
+	<?php require_once("components/footer.php"); ?>
+	<!-- END footer -->
 
-				<div class="col-md-3 col-md-push-1">
-					<h4>Links</h4>
-					<ul class="fh5co-footer-links">
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Work</a></li>
-						<li><a href="#">Services</a></li>
-						<li><a href="#">Blog</a></li>
-						<li><a href="#">About us</a></li>
-					</ul>
-				</div>
-
-				<div class="col-md-3">
-					<h4>Contact Information</h4>
-					<ul class="fh5co-footer-links">
-						<li>198 West 21th Street, <br> Suite 721 New York NY 10016</li>
-						<li><a href="tel://1234567920">+ 1235 2355 98</a></li>
-						<li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
-						<li><a href="http://gettemplates.co">gettemplates.co</a></li>
-					</ul>
-				</div>
-
-			</div>
-
-			<div class="row copyright">
-				<div class="col-md-12 text-center">
-					<p>
-						<small class="block">&copy; Powered by <a href="http://devbalu.com/">"DevBalu"</a> 2017</small>
-					</p>
-					<p>
-						<ul class="fh5co-social-icons">
-							<li><a href="https://github.com/DevBalu"><i class="icon-git"></i></a></li>
-							<li><a href="https://www.linkedin.com/in/%D0%B0%D0%BD%D0%B4%D1%80%D0%B5%D0%B9-%D0%B3%D0%B5%D0%BD%D0%BE%D0%B2-61a003b3/"><i class="icon-linkedin"></i></a></li>
-							<li><a href="#"><i class="icon-dribbble"></i></a></li>
-						</ul>
-					</p>
-				</div>
-			</div>
-		</footer>
-	</div><!-- END container -->
-	</div>
-
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up2"></i></a>
-	</div>
-	
-	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
-	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	<!-- Flexslider -->
-	<script src="js/jquery.flexslider-min.js"></script>
-	<!-- Sticky Kit -->
-	<script src="js/sticky-kit.min.js"></script>
-	<!-- Main -->
-	<script src="js/main.js"></script>
+	<!-- libs -->
+	<?php include("components/libs.php"); ?>
+	<!-- END libs -->
 
 	</body>
 </html>
