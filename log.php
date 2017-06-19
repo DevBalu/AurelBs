@@ -26,7 +26,7 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="login col l5 offset-l3">
+			<div class="login col l5 offset-l3 s12">
 				<div class=""><a href="e-learing"></a></div>
 				<h2 class="login-header">Log in</h2>
 

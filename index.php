@@ -2,21 +2,49 @@
 	session_start();
 	require_once("php/connect.php");
 
-	$right = "vasea";
-	// print !empty($ryght) ? "sveta" : "$right";die;
-
 	if (!empty($con)) {
 		$sql = "SELECT * FROM groups";
 		$group_query = $con->query($sql);
 
+		$right = "";
+		$left = "";
 		while ($gr_res = $group_query->fetch_object()) {
-			print "<pre>";
-			print_r($gr_res);
-			print "</pre>";
+			if ($gr_res->location == "left") {
+				$left .= '
+						<div class="col-md-12 animate-box">
+							<a href="single.php?idg=' . $gr_res->id . '" class="portfolio-grid">
+								<img src="'. $gr_res->bg . '" class="img-responsive" >
+								<div class="desc">
+									<h3>' . $gr_res->title .'</h3>
+									<span>' . $gr_res->subtitle .'</span>
+								</div>
+							</a>
+						</div>
+					';
+
+			}elseif($gr_res->location == "right"){
+				$right .= '
+						<div class="col-md-12 animate-box">
+							<a href="single.php?idg=' . $gr_res->id . '" class="portfolio-grid">
+								<img src="'. $gr_res->bg . '" class="img-responsive" >
+								<div class="desc">
+									<h3>' . $gr_res->title .'</h3>
+									<span>' . $gr_res->subtitle .'</span>
+								</div>
+							</a>
+						</div>
+				';
+			}
+
+			// print "<pre>";
+			// print_r($gr_res);
+			// print "</pre>";
 
 		}
 	}
 
+
+	// navbar / auth logic 
 	if(!empty($_SESSION['auth'])){
 		$log = '
 			<li><a href="php/logout.php">Logout</a></li>
@@ -74,114 +102,21 @@
 
 	<div class="container">
 		<aside id="fh5co-hero">
-			<div class="flexslider">
-				<ul class="slides">
-					<li style="background-image: url(images/img_bg_1.jpg);">
-						<div class="overlay"></div>
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
-									<div class="slider-text-inner">
-										<h1><a href="#">Best showcase for architecture</a></h1>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li style="background-image: url(images/img_bg_2.jpg);">
-						<div class="overlay"></div>
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
-									<div class="slider-text-inner">
-										<h1><a href="#">Best showcase for architecture</a></h1>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li style="background-image: url(images/img_bg_3.jpg);">
-						<div class="overlay"></div>
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
-									<div class="slider-text-inner">
-										<h1><a href="#">Best showcase for architecture</a></h1>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li style="background-image: url(images/img_bg_4.jpg);">
-						<div class="overlay"></div>
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
-									<div class="slider-text-inner">
-										<h1><a href="#">Best showcase for architecture</a></h1>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li style="background-image: url(images/img_bg_6.jpg);">
-						<div class="overlay"></div>
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
-									<div class="slider-text-inner">
-										<h1><a href="#">Best showcase for architecture</a></h1>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li style="background-image: url(images/img_bg_7.jpg);">
-						<div class="overlay"></div>
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col-md-6 col-xs-8 col-md-offset-1 slider-text">
-									<div class="slider-text-inner">
-										<h1><a href="#">Best showcase for architecture</a></h1>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
+			<?php include("components/slider.php"); ?>
 		</aside>
 
 		<div id="fh5co-portfolio">
 			<div class="row nopadding">
 				<div class="col-md-6 padding-right">
 					<div class="row">
-
-
-						<div class="col-md-12 animate-box">
-							<a href="single.php" class="portfolio-grid">
-								<img src="images/portfolio-1.jpg" class="img-responsive" >
-								<div class="desc">
-									<h3>Dublin Arena Architect Project</h3>
-									<span>Building, Arena</span>
-								</div>
-							</a>
-						</div>
-
+						<?php print empty($left) ? "" : $left; ?>
 					</div><!-- END p-r row -->
 				</div><!-- END padding-right -->
 
 				<div class="col-md-6 padding-left">
 					<div class="row">
-						<div class="col-md-12 animate-box">
-							<a href="single.php" class="portfolio-grid">
-								<img src="images/portfolio-2.jpg" class="img-responsive" >
-								<div class="desc">
-									<h3>Dublin Arena Architect Project</h3>
-									<span>Building, Arena</span>
-								</div>
-							</a>
-						</div>
+						<?php print empty($right) ? "" : $right; ?>
+
 
 					</div><!-- END p-l row -->
 				</div><!-- END padding-left -->

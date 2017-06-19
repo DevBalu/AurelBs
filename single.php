@@ -1,48 +1,220 @@
+<?php 
+	session_start();
+	require_once("php/connect.php");
+	if(!empty($_GET['idg'])){
+		$idg = $_GET['idg'];
+	}else {
+		header("Location: index.php");
+	}
+
+	// FIRST STEP OF VERIFICATION IN THIS PAGE
+	if($con){
+		$sql = "SELECT * FROM `categories` WHERE `categories`.`id_group` = $idg";
+		$category_query = $con->query($sql);
+		$num_row_cat = mysqli_num_rows($category_query);
+	}else {
+		print "connection denied.";die;
+	}
+
+	// if exist anything in table categories with id group needed then show the following form
+	if($num_row_cat > 0){
+		$right = "";
+		$left = "";
+
+
+		while ($ct_res = $category_query->fetch_object()) {
+			if ($ct_res->location == "left") {
+				$left = '
+						<div class="col-md-12 animate-box">
+							<a href="single.php?idg=' . $idg . '&idc=' . $ct_res->id . '" class="portfolio-grid">
+								<img src="'. $ct_res->bg . '" class="img-responsive" >
+								<div class="desc">
+									<h3>' . $ct_res->title .'</h3>
+									<span>' . $ct_res->subtitle .'</span>
+								</div>
+							</a>
+						</div>
+					';
+
+			}elseif($ct_res->location == "right"){
+				$right = '
+						<div class="col-md-12 animate-box">
+							<a href="single.php?idg=' . $idg . '&idc=' . $ct_res->id . '" class="portfolio-grid">
+								<img src="'. $ct_res->bg . '" class="img-responsive" >
+								<div class="desc">
+									<h3>' . $ct_res->title .'</h3>
+									<span>' . $ct_res->subtitle .'</span>
+								</div>
+							</a>
+						</div>
+				';
+			}
+		}/*end while*/
+
+		// finish result for first step verification
+		$content = '
+			<div id="fh5co-portfolio">
+				<div class="row nopadding">
+					<div class="col-md-6 padding-right">
+						<div class="row">
+							' . $left . '
+						</div><!-- END p-r row -->
+					</div><!-- END padding-right -->
+
+					<div class="col-md-6 padding-left">
+						<div class="row">
+							' . $right . '
+						</div><!-- END p-l row -->
+					</div><!-- END padding-left -->
+
+				</div><!-- END main-portfolio row -->
+			</div><!-- END portfolio -->';
+
+	} /*END FIRST STEP OF VERIFICATION*/
+
+	else {/*SECOND STEP OF VERIFICATION*/
+
+		// get all data except img. for image we need use another request to db, request from table image there we get all image that have id post
+		$sql = "SELECT `post`.* FROM `post` WHERE `post`.`id_gr` = $idg";
+		$gr_post = $con->query($sql);
+		$nr_gr_post = mysqli_num_rows($gr_post);
+
+		if ($nr_gr_post < 2) {
+			$gp = $gr_post->fetch_object();
+
+			// functionals for images
+			$sql_image = "SELECT `images`.* FROM `images` WHERE `images`.`id_post` = $gp->id";
+			$query_images = $con->query($sql_image);
+			$images = "";
+			while ($row_img = $query_images->fetch_object()) {
+				$images .= '
+						<div class="image-item  animate-box">
+							<img src="' . $row_img->bg. '" class="img-responsive" >
+						</div>';
+			}
+			// END functionals for images
+
+			// finish result for second step verification
+			$content = '
+					<div id="fh5co-intro">
+						<div class="row animate-box">
+							<div class="col-md-8 col-md-offset-2 col-md-pull-2">
+								<h2>' . $gp->title . '</h2>
+							</div>
+						</div>
+					</div>
+					<div id="fh5co-portfolio">
+						<div class="row">
+
+							<div class="col-md-4 col-md-push-8 sticky-parent">
+								<div class="detail" id="sticky_item">
+									<div class="animate-box">
+										<h2>' . $gp->desc_title . '</h2>
+										<span>Architectural Design</span>
+										<p>' . $gp->description . '</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-7 col-md-pull-4 image-content">
+							' . $images . '
+							</div>
+							
+						</div>
+					</div>
+
+			'; /*end $content*/
+		}
+	}/*END SECOND STEP OF VERIFICATION*/
+
+
+
+	// THIRD STEP OF VERIFICATION
+	// if in href exist id of categori then send request to table post and get all data which have id categories and rewriting variable $content in the following form
+	if(!empty($_GET['idc'])){
+		$idc = $_GET['idc'];
+		$sql_cat_pos = "SELECT `post`.* FROM `post` WHERE `post`.`id_cat` = $idc LIMIT 1";
+		$query_cat_pos = $con->query($sql_cat_pos);
+		$nr_cat_pos = mysqli_num_rows($query_cat_pos);
+
+		if ($nr_cat_pos < 1) {
+			print'Data for this category is not was added';die;
+			// header("Location: single.php?idg=" . $idg);
+		}
+
+
+		$cp = $query_cat_pos->fetch_object();
+		// functionals for images
+		$sql_cat_pos_image = "SELECT `images`.* FROM `images` WHERE `images`.`id_post` = $cp->id";
+		$query_cat_pos_images = $con->query($sql_cat_pos_image);
+		$nr_cat_pos_images = mysqli_num_rows($query_cat_pos_images);
+		$cat_pos_images = '';
+
+		if ($nr_cat_pos_images > 0) {
+			while ($row_img = $query_cat_pos_images->fetch_object()) {
+				$cat_pos_images .= '
+						<div class="image-item  animate-box">
+							<img src="' . $row_img->bg. '" class="img-responsive" >
+						</div>';
+			}
+		}
+		// END functionals for images
+
+
+		// finish result for second step verification
+		$content = '
+				<div id="fh5co-intro">
+					<div class="row animate-box">
+						<div class="col-md-8 col-md-offset-2 col-md-pull-2">
+							<h2>' . $cp->title . '</h2>
+						</div>
+					</div>
+				</div>
+				<div id="fh5co-portfolio">
+					<div class="row" style="min-height: 400px;">
+						<div class="col-md-4 col-md-push-8 sticky-parent">
+							<div class="detail" id="sticky_item">
+								<div class="animate-box">
+									<h2>' . $cp->desc_title . '</h2>
+									<span>Architectural Design</span>
+									<p>' . $cp->description . '</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-7 col-md-pull-4 image-content">
+						' . $cat_pos_images . '
+						</div>
+						
+					</div>
+				</div>
+
+		'; /*end $content*/
+	}
+
+
+			// print "<pre>";
+			// print_r($cp);
+			// print "</pre>";
+
+	// END THIRD STEP OF VERIFICATION
+
+	// nav / auth logic
+	if(!empty($_SESSION['auth'])){
+		$log = '
+			<li><a href="php/logout.php">Logout</a></li>
+			<li><a href="#">Admin</a></li>';
+	}else {
+		$log = '
+			<li><a href="log.php">Login</a></li>
+		';
+	}
+
+ ?>
 <!DOCTYPE HTML>
 <html>
 	<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Architect &mdash; Free Website Template, Free HTML5 Template by freehtml5.co</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Website Template by freehtml5.co" />
-	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-	<meta name="author" content="freehtml5.co" />
-
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
-
-	<link href="https://fonts.googleapis.com/css?family=Libre+Franklin:300,400" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Old+Standard+TT:400,400i" rel="stylesheet">
-	
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
-
-	<!-- Flexslider  -->
-	<link rel="stylesheet" href="css/flexslider.css">
-
-	<!-- Theme style  -->
-	<link rel="stylesheet" href="css/style.css">
-
-	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
-
+		<?php include("components/head.php"); ?>
 	</head>
 	<body>
 
@@ -53,13 +225,12 @@
 		<div class="container">
 			<div class="top-menu">
 				<div class="row">
-					<div class="col-xs-2">
+					<div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
 						<div id="fh5co-logo"><a href="index.php"><img src="images/logo.png"></a></div>
 					</div>
 					<div class="col-xs-10 text-right menu-1">
 						<ul>
 							<li><a href="index.php">Portfolio</a></li>
-							<li class="active"><a href="single.php">Single</a></li>
 							<li class="has-dropdown"><a href="#">Dropdown</a>
 								<ul class="dropdown">
 									<li><a href="#">Infrastructure</a></li>
@@ -69,6 +240,7 @@
 								</ul>
 							</li>
 							<li><a href="contact.php">Contact</a></li>
+							<?php print $log; ?>
 						</ul>
 					</div>
 				</div>
@@ -76,127 +248,20 @@
 			</div>
 		</div>
 	</nav>
+
+	<!-- field there show result in dependence of step -->
 	<div class="container">
-		<div id="fh5co-intro">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 col-md-pull-2">
-					<h2>Architecture Building In Dublin, Ireland</h2>
-				</div>
-			</div>
-		</div>
-		<div id="fh5co-portfolio">
-			<div class="row">
-
-				<div class="col-md-4 col-md-push-8 sticky-parent">
-					<div class="detail" id="sticky_item">
-						<div class="animate-box">
-							<h2>Dublin Stadium</h2>
-							<span>Architectural Design</span>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-							<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius. </p>
-							<p><a class="btn btn-primary btn-demo" href="#"></i> View Project</a></p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-7 col-md-pull-4 image-content">
-					<div class="image-item  animate-box">
-						<img src="images/portfolio-5.jpg" class="img-responsive" alt="Free php5 Bootstrap Template by FreeHTML5.co">
-					</div>
-					<div class="image-item  animate-box">
-						<img src="images/portfolio-2.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
-					</div>
-					<div class="image-item  animate-box">
-						<img src="images/portfolio-4.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
-					</div>
-					<div class="image-item  animate-box">
-						<img src="images/portfolio-3.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
-					</div>
-					<div class="image-item  animate-box">
-						<img src="images/portfolio-7.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
-					</div>
-				</div>
-				
-			</div>
-		</div>
+		<?php print empty($content) ? "" : $content; ?>
 	</div><!-- END container-wrap -->
+	<!--END  field there show result in dependence of step -->
 
-	<div class="container">
-		<footer id="fh5co-footer" role="contentinfo">
-			<div class="row">
-				<div class="col-md-3 fh5co-widget">
-					<h4>About Carbon</h4>
-					<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-				</div>
-				<div class="col-md-3 col-md-push-1">
-					<h4>Latest Projects</h4>
-					<ul class="fh5co-footer-links">
-						<li><a href="#">JBC Stadium</a></li>
-						<li><a href="#">T-Mobile Arena</a></li>
-						<li><a href="#">Target Field</a></li>
-						<li><a href="#">London Stadium</a></li>
-					</ul>
-				</div>
+	<!-- footer -->
+	<?php require_once("components/footer.php"); ?>
+	<!-- END footer -->
 
-				<div class="col-md-3 col-md-push-1">
-					<h4>Links</h4>
-					<ul class="fh5co-footer-links">
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Work</a></li>
-						<li><a href="#">Services</a></li>
-						<li><a href="#">Blog</a></li>
-						<li><a href="#">About us</a></li>
-					</ul>
-				</div>
-
-				<div class="col-md-3">
-					<h4>Contact Information</h4>
-					<ul class="fh5co-footer-links">
-						<li>198 West 21th Street, <br> Suite 721 New York NY 10016</li>
-						<li><a href="tel://1234567920">+ 1235 2355 98</a></li>
-						<li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
-						<li><a href="http://gettemplates.co">gettemplates.co</a></li>
-					</ul>
-				</div>
-
-			</div>
-
-			<div class="row copyright">
-				<div class="col-md-12 text-center">
-					<p>
-						<small class="block">&copy; Powered by <a href="http://devbalu.com/">"DevBalu"</a> 2017</small>
-					</p>
-					<p>
-						<ul class="fh5co-social-icons">
-							<li><a href="https://github.com/DevBalu"><i class="icon-git"></i></a></li>
-							<li><a href="https://www.linkedin.com/in/%D0%B0%D0%BD%D0%B4%D1%80%D0%B5%D0%B9-%D0%B3%D0%B5%D0%BD%D0%BE%D0%B2-61a003b3/"><i class="icon-linkedin"></i></a></li>
-							<li><a href="#"><i class="icon-dribbble"></i></a></li>
-						</ul>
-					</p>
-				</div>
-			</div>
-		</footer>
-	</div><!-- END container-wrap -->
-	</div>
-
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up2"></i></a>
-	</div>
-	
-	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
-	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	<!-- Flexslider -->
-	<script src="js/jquery.flexslider-min.js"></script>
-	<!-- Sticky Kit -->
-	<script src="js/sticky-kit.min.js"></script>
-	<!-- Main -->
-	<script src="js/main.js"></script>
+	<!-- libs -->
+	<?php include("components/libs.php"); ?>
+	<!-- END libs -->
 
 	</body>
 </html>
