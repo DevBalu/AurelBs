@@ -2,39 +2,196 @@
 	session_start();
 
 	if(empty($_SESSION['auth'])){
-		// header("Location: /AurelBs/index.php");
+		header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/index.php');
 	}
 
 	require_once("../php/connect.php");
 
-	if (isset($_GET['gr'])) {
-		$href = "../php/add_group.php";
-		$name = "group_name";
-		$bg = "group_bg";
-		$select_group = "group_select";
-		$select_category = "";
-
-
-	}
-
-
+	// get all groups & categories existent
+	$options_groups = "";
+	$options_categories = "";
 	if (!empty($con)) {
+		$sql_gr = "SELECT `groups`.* FROM `groups` ";
+		$sql_cat = "SELECT `categories`.* FROM `categories`";
 
-		$sql_group_option = "SELECT * FROM groups";
-		$query_group = $con->query($sql_group_option);
+		$query_gr = $con->query($sql_gr);
+		$query_cat = $con->query($sql_cat);
 
+		while($row = $query_gr->fetch_object()){
+			$options_groups .= '<option value="' . $row->id . '">' . $row->title . '</option>';
+		}
+		while($row = $query_cat->fetch_object()){
+			$options_categories .= '<option value="' . $row->id . '">' . $row->title . '</option>';
+		}
 
-			// print "<pre>";
-			// print_r();
-			// print "</pre>";
-
-		// }
+		$gr = '
+			<div class="col-md-12 col-sm-12">
+				<h4>Select which group this post will belong to</h4>
+				<div class="form-group">
+					<select name="groups" class="form-control">
+						' . $options_groups . '
+					</select>
+				</div>
+			</div>
+		';
+		$cat = '
+			<div class="col-md-12 col-sm-12">
+				<h4>Select which category this post will belong to</h4>
+				<div class="form-group">
+					<select name="categories" class="form-control">
+						' . $options_categories . '
+					</select>
+				</div>
+			</div>';
+		$desc = '
+			<div class="col-md-12 col-sm-12">
+				<div class="form-group">
+					<textarea name="post_desc" class="form-control" id="" cols="30" rows="15" placeholder="Description"></textarea>
+				</div>
+			</div>
+		';
 	}
 
+	// Depending on the choice will be showing form of filling
+	if (isset($_GET['gr'])) {
+		$form = '
+			<form action="../php/add_group.php" method="POST" enctype="multipart/form-data">
+				<div class="row">
+					<h2 class="text-center">ADD GROUP</h2>
 
-	// navbar / auth logic 
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Title" name="title">
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Subtitle" name="subtitle">
+						</div>
+					</div>
+
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							<input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
+						</div>
+					</div>
+
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							<select name="location" class="form-control">
+								<option value="left">left</option>
+								<option value="right">right</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-md-2 col-md-offset-10 col-sm-12 btn-right">
+						<div class="form-group">
+							<input type="submit" value="ADD" class="btn btn-primary btn-modify" style="width: 100%;">
+						</div>
+					</div>
+				</div>
+			</form>
+		';
+
+	}elseif (isset($_GET['cat'])) {
+		$form = '
+			<form action="../php/add_cat.php" method="POST" enctype="multipart/form-data">
+				<div class="row">
+					<h2 class="text-center">ADD CATEGORY</h2>
+
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Title" name="title">
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Subtitle" name="subtitle">
+						</div>
+					</div>
+
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							<input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
+						</div>
+					</div>
+
+					' . $gr . '
+
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							<select name="location" class="form-control">
+								<option value="left">left</option>
+								<option value="right">right</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-md-2 col-md-offset-10 col-sm-12 btn-right">
+						<div class="form-group">
+							<input type="submit" value="ADD" class="btn btn-primary btn-modify" style="width: 100%;">
+						</div>
+					</div>
+				</div>
+			</form>
+		';
+
+	}elseif (isset($_GET['pt'])) {
 
 
+
+
+		$form = '
+			<form action="../php/add_cat.php" method="POST" enctype="multipart/form-data">
+				<div class="row">
+					<h2 class="text-center">ADD POST</h2>
+
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Title" name="title">
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Subtitle" name="subtitle">
+						</div>
+					</div>
+
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							<input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
+						</div>
+					</div>
+
+					' . $gr . '
+					'. $cat . '
+
+					' . $desc . '
+
+					<div class="col-md-2 col-md-offset-10 col-sm-12 btn-right">
+						<div class="form-group">
+							<input type="submit" value="ADD" class="btn btn-primary btn-modify" style="width: 100%;">
+						</div>
+					</div>
+				</div>
+			</form>
+		';
+	}
+
+// print "<pre>";
+// print_r($row);
+// print "</pre>";
+
+	// nav/ auth
+	if(!empty($_SESSION['auth'])){
+		$log = '
+			<li><a href="../php/logout.php">Logout</a></li>';
+	}else {
+		$log = '
+			<li><a href="log.php">Login</a></li>
+		';
+	}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -65,6 +222,20 @@
 	</head>
 
 	<body>
+		<nav class="fh5co-nav" role="navigation">
+			<div class="container">
+				<div class="top-menu">
+					<div class="row">
+						<div class="col-sm-7 text-right menu-1">
+							<ul>
+								<li class="active"><a href="../index.php">Home</a></li>
+								<?php print $log; ?>
+							</ul>
+						</div>
+					</div><!-- END row -->
+				</div><!-- END top-menu -->
+			</div><!-- END container -->
+		</nav>
 
 		<div class="fh5co-loader"></div>
 
@@ -101,54 +272,7 @@
 		<div class="container" style="padding: 0;">
 			<div class="col-md-8 col-md-offset-2 col-sm-12 animate-box">
 				<div class="form-wrap">
-
-					<form action="<?php print $href; ?>">
-						<div class="row">
-							<h2 class="text-center">ADD ANYTHING DATA</h2>
-							<div class="col-md-12 col-sm-12">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Title" name="<?php print $name;?>">
-								</div>
-							</div>
-							<div class="col-md-12 col-sm-12">
-								<div class="form-group">
-									<input type="file" class="form-control" placeholder="background" name="<?php print $bg; ?>">
-								</div>
-							</div>
-
-							<div class="col-md-12 col-sm-12">
-								<div class="form-group">
-									<select name="<?php print $select_group; ?>" class="form-control">
-										<option value="zina" disabled></option>
-										<option value="vasea">woodwork</option>
-										<option value="vasea">roof</option>
-									</select>
-								</div>
-							</div>
-
-							<div class="col-md-12 col-sm-12">
-								<div class="form-group">
-									<select name="<?php print $select_category; ?>" class="form-control">
-										<option value="zina" disabled></option>
-										<option value="vasea">woodwork</option>
-										<option value="vasea">roof</option>
-									</select>
-								</div>
-							</div>
-
-							<div class="col-md-12 col-sm-12">
-								<div class="form-group">
-									<textarea name="" class="form-control" id="" cols="30" rows="15" placeholder="Message"></textarea>
-								</div>
-							</div>
-							<div class="col-md-2 col-md-offset-10 col-sm-12 btn-right">
-								<div class="form-group">
-									<input type="submit" value="ADD" class="btn btn-primary btn-modify" style="width: 100%;">
-								</div>
-							</div>
-						</div>
-					</form>
-
+					<?php print $form; ?>
 				</div>
 			</div>
 		</div>

@@ -4,7 +4,7 @@
 	if(!empty($_GET['idg'])){
 		$idg = $_GET['idg'];
 	}else {
-		header("Location: index.php");
+		header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/index.php');
 	}
 
 	// FIRST STEP OF VERIFICATION IN THIS PAGE
@@ -16,16 +16,25 @@
 		print "connection denied.";die;
 	}
 
+
 	// if exist anything in table categories with id group needed then show the following form
 	if($num_row_cat > 0){
 		$right = "";
 		$left = "";
 
-
 		while ($ct_res = $category_query->fetch_object()) {
+
+			// if you is autorized can see btn del
+			if(!empty($_SESSION['auth'])){
+				$del_cat = '<a class="btn black" href="php/del_cat.php?idg='  . $idg . '&idc=' . $ct_res->id . '">DEL</a>';
+			}else {
+				$del_cat = "";
+			}
+
 			if ($ct_res->location == "left") {
 				$left = '
 						<div class="col-md-12 animate-box">
+							' . $del_cat . '
 							<a href="single.php?idg=' . $idg . '&idc=' . $ct_res->id . '" class="portfolio-grid">
 								<img src="'. $ct_res->bg . '" class="img-responsive" >
 								<div class="desc">
@@ -39,6 +48,7 @@
 			}elseif($ct_res->location == "right"){
 				$right = '
 						<div class="col-md-12 animate-box">
+							' . $del_cat . '
 							<a href="single.php?idg=' . $idg . '&idc=' . $ct_res->id . '" class="portfolio-grid">
 								<img src="'. $ct_res->bg . '" class="img-responsive" >
 								<div class="desc">
@@ -78,6 +88,10 @@
 		$sql = "SELECT `post`.* FROM `post` WHERE `post`.`id_gr` = $idg";
 		$gr_post = $con->query($sql);
 		$nr_gr_post = mysqli_num_rows($gr_post);
+
+		if ($nr_gr_post < 1) {
+			header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/index.php');
+		}
 
 		if ($nr_gr_post < 2) {
 			$gp = $gr_post->fetch_object();
@@ -202,8 +216,8 @@
 	// nav / auth logic
 	if(!empty($_SESSION['auth'])){
 		$log = '
-			<li><a href="php/logout.php">Logout</a></li>
-			<li><a href="#">Admin</a></li>';
+			<li><a href="adm/panel.php?pt=1">Admin</a></li>
+			<li><a href="php/logout.php">Logout</a></li>';
 	}else {
 		$log = '
 			<li><a href="log.php">Login</a></li>
@@ -231,14 +245,14 @@
 					<div class="col-xs-10 text-right menu-1">
 						<ul>
 							<li><a href="index.php">Portfolio</a></li>
-							<li class="has-dropdown"><a href="#">Dropdown</a>
+<!-- 							<li class="has-dropdown"><a href="#">Dropdown</a>
 								<ul class="dropdown">
 									<li><a href="#">Infrastructure</a></li>
 									<li><a href="#">Residential</a></li>
 									<li><a href="#">Environmental</a></li>
 									<li><a href="#">Megabuilders</a></li>
 								</ul>
-							</li>
+							</li> -->
 							<li><a href="contact.php">Contact</a></li>
 							<?php print $log; ?>
 						</ul>

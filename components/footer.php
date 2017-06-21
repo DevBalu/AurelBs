@@ -41,7 +41,7 @@
 		<div class="row copyright">
 			<div class="col-md-12 text-center">
 				<p>
-					<small class="block">&copy; Powered by <a href="http://devbalu.com/">"DevBalu"</a> 2017</small>
+					<small class="block">&copy; Developed by <a href="http://devbalu.com/">"DevBalu"</a> 2017</small>
 				</p>
 				<p>
 					<ul class="fh5co-social-icons">

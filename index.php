@@ -9,9 +9,18 @@
 		$right = "";
 		$left = "";
 		while ($gr_res = $group_query->fetch_object()) {
+
+			// if you is autorized can see btn del
+			if(!empty($_SESSION['auth'])){
+				$del_group = '<a class="btn black" href="php/del_group.php?idg=' . $gr_res->id . '">DEL</a>';
+			}else {
+				$del_group = "";
+			}
+
 			if ($gr_res->location == "left") {
 				$left .= '
 						<div class="col-md-12 animate-box">
+							' . $del_group . '
 							<a href="single.php?idg=' . $gr_res->id . '" class="portfolio-grid">
 								<img src="'. $gr_res->bg . '" class="img-responsive" >
 								<div class="desc">
@@ -25,6 +34,7 @@
 			}elseif($gr_res->location == "right"){
 				$right .= '
 						<div class="col-md-12 animate-box">
+							' . $del_group . '
 							<a href="single.php?idg=' . $gr_res->id . '" class="portfolio-grid">
 								<img src="'. $gr_res->bg . '" class="img-responsive" >
 								<div class="desc">
@@ -47,8 +57,8 @@
 	// navbar / auth logic 
 	if(!empty($_SESSION['auth'])){
 		$log = '
-			<li><a href="php/logout.php">Logout</a></li>
-			<li><a href="#">Admin</a></li>';
+			<li><a href="adm/panel.php?pt=1">Admin</a></li>
+			<li><a href="php/logout.php">Logout</a></li>';
 	}else {
 		$log = '
 			<li><a href="log.php">Login</a></li>
@@ -66,39 +76,7 @@
 	<div class="fh5co-loader"></div>
 	
 	<div id="page">
-	<nav class="fh5co-nav" role="navigation">
-		<div class="container">
-			<div class="top-menu">
-				<div class="row">
-					<div class="col-sm-4 col-sm-offset-1">
-						<div id="fh5co-logo"><a href="index.php"><img src="images/logo.png"></a></div>
-					</div><!-- END logo -->
-
-
-					<div id="fh6co-intro">
-						<div class="animate-box">
-							<h1><!-- <span>&amp;</span> Go to your dreams --></h1>
-						</div>
-					</div><!-- END fh6co-intro -->
-					<div class="col-sm-7 text-right menu-1">
-						<ul>
-							<li class="active"><a href="index.php">Portfolio</a></li>
-							<li class="has-dropdown"><a href="single.php">Dropdown</a>
-								<ul class="dropdown">
-									<li><a href="#">Infrastructure</a></li>
-									<li><a href="#">Residential</a></li>
-									<li><a href="#">Environmental</a></li>
-									<li><a href="#">Megabuilders</a></li>
-								</ul>
-							</li>
-							<li><a href="contact.php">Contact</a></li>
-							<?php print $log; ?>
-						</ul>
-					</div>
-				</div><!-- END row -->
-			</div><!-- END top-menu -->
-		</div><!-- END container -->
-	</nav>
+	<?php require_once("components/bignav.php"); ?>
 
 	<div class="container">
 		<aside id="fh5co-hero">
