@@ -32,7 +32,7 @@
 			}
 
 			if ($ct_res->location == "left") {
-				$left = '
+				$left .= '
 						<div class="col-md-12 animate-box">
 							' . $del_cat . '
 							<a href="single.php?idg=' . $idg . '&idc=' . $ct_res->id . '" class="portfolio-grid">
@@ -46,7 +46,7 @@
 					';
 
 			}elseif($ct_res->location == "right"){
-				$right = '
+				$right .= '
 						<div class="col-md-12 animate-box">
 							' . $del_cat . '
 							<a href="single.php?idg=' . $idg . '&idc=' . $ct_res->id . '" class="portfolio-grid">
@@ -85,7 +85,7 @@
 	else {/*SECOND STEP OF VERIFICATION*/
 
 		// get all data except img. for image we need use another request to db, request from table image there we get all image that have id post
-		$sql = "SELECT `post`.* FROM `post` WHERE `post`.`id_gr` = $idg";
+		$sql = "SELECT `post`.* FROM `post` WHERE `post`.`id_gr` = $idg ORDER BY id DESC LIMIT 1";
 		$gr_post = $con->query($sql);
 		$nr_gr_post = mysqli_num_rows($gr_post);
 
@@ -147,7 +147,7 @@
 	// if in href exist id of categori then send request to table post and get all data which have id categories and rewriting variable $content in the following form
 	if(!empty($_GET['idc'])){
 		$idc = $_GET['idc'];
-		$sql_cat_pos = "SELECT `post`.* FROM `post` WHERE `post`.`id_cat` = $idc LIMIT 1";
+		$sql_cat_pos = "SELECT `post`.* FROM `post` WHERE `post`.`id_cat` = $idc ORDER BY id DESC LIMIT 1";
 		$query_cat_pos = $con->query($sql_cat_pos);
 		$nr_cat_pos = mysqli_num_rows($query_cat_pos);
 
@@ -190,7 +190,6 @@
 							<div class="detail" id="sticky_item">
 								<div class="animate-box">
 									<h2>' . $cp->desc_title . '</h2>
-									<span>Architectural Design</span>
 									<p>' . $cp->description . '</p>
 								</div>
 							</div>

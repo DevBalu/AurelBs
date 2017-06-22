@@ -6,7 +6,7 @@
 
 
 		if ($con) {
-			$userreq = mysqli_query($con, "SELECT * FROM admin") ;
+			$userreq = mysqli_query($con, "SELECT * FROM `viorel`") ;
 			$response = $userreq->fetch_assoc();
 		}
 

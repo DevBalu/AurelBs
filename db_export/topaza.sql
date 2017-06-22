@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2017 at 05:20 PM
+-- Generation Time: Jun 22, 2017 at 04:06 PM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -25,24 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
---
-
-CREATE TABLE `admin` (
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`username`, `password`) VALUES
-('username', 'password');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `categories`
 --
 
@@ -60,10 +42,9 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `id_group`, `bg`, `title`, `subtitle`, `location`) VALUES
-(1, 1, 'images/portfolio-23.png', 'First category title', 'First description', 'left'),
-(2, 1, 'images/img_bg_3.jpg', 'Second category title', 'Second description', 'right'),
-(3, 1, 'images/portfolio-23.png', 'title for id group 2', 'subtitle for id group 2', 'left'),
-(5, 1, 'http://localhost/AurelBs/post_images/home.jpg', 'title', 'subtitle', 'left');
+(8, 9, 'http://localhost/AurelBs/post_images/oskar-krawczyk-172847.jpg', 'sss', 'ss', 'left'),
+(13, 10, 'http://localhost/AurelBs/post_images/wood-wallpaper-4.jpg', 'desk', '	 desk', 'left'),
+(14, 10, 'http://localhost/AurelBs/post_images/img_bg_2.jpg', 'Desk', 'Desk', 'right');
 
 -- --------------------------------------------------------
 
@@ -84,10 +65,8 @@ CREATE TABLE `groups` (
 --
 
 INSERT INTO `groups` (`id`, `bg`, `title`, `subtitle`, `location`) VALUES
-(1, 'images/portfolio-1.jpg', 'First description!', 'subtitle text', 'left'),
-(2, 'images/portfolio-2.jpg', 'Second description!', 'subtitle text', 'right'),
-(3, 'img/img_bg_1.jpg', 'title', 'subtitle', 'location'),
-(9, 'http://localhost/AurelBs/post_images/emblema.jpg', 'pabel group', 'pabel group', 'left');
+(10, 'http://localhost/AurelBs/post_images/portfolio-1.jpg', 'Woodwork', 'Woodwork', 'left'),
+(12, 'http://localhost/AurelBs/post_images/portfolio-2.jpg', 'ROOF', 'Desk', 'right');
 
 -- --------------------------------------------------------
 
@@ -100,15 +79,6 @@ CREATE TABLE `images` (
   `id_post` int(11) NOT NULL,
   `bg` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `images`
---
-
-INSERT INTO `images` (`id`, `id_post`, `bg`) VALUES
-(1, 1, 'images/portfolio-2.jpg'),
-(2, 1, 'images/img_bg_6.jpg'),
-(3, 1, 'images/portfolio-1.jpg');
 
 -- --------------------------------------------------------
 
@@ -124,14 +94,6 @@ CREATE TABLE `post` (
   `desc_title` varchar(255) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `post`
---
-
-INSERT INTO `post` (`id`, `id_gr`, `id_cat`, `title`, `desc_title`, `description`) VALUES
-(1, 2, 0, 'Title of repositories', 'little description of title', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts.\r\n\r\nDignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.'),
-(2, 0, 2, 'title text for post related with category', 'Description text for post related with category', 'title text for post related with category \r\nFar far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts far from the countries Vokalia and Consonantia, there live the blind texts. Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.');
 
 -- --------------------------------------------------------
 
@@ -150,11 +112,28 @@ CREATE TABLE `slider` (
 --
 
 INSERT INTO `slider` (`id`, `img`, `description`) VALUES
-(1, 'images/img_bg_1.jpg', 'Best showcase for architecture'),
 (2, 'images/img_bg_2.jpg', 'Best showcase for architecture'),
 (3, 'images/img_bg_3.jpg', 'Best showcase for architecture'),
 (4, 'images/img_bg_4.jpg', 'Best showcase for architecture'),
 (5, 'images/img_bg_6.jpg', 'Best showcase for architecture');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `viorel`
+--
+
+CREATE TABLE `viorel` (
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `viorel`
+--
+
+INSERT INTO `viorel` (`username`, `password`) VALUES
+('username', 'password');
 
 --
 -- Indexes for dumped tables
@@ -199,27 +178,27 @@ ALTER TABLE `slider`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `slider`
 --
 ALTER TABLE `slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --

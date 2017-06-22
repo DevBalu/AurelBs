@@ -5,6 +5,10 @@
 		header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/index.php');
 	}
 
+	if(empty($_GET['gr']) && empty($_GET['cat']) && empty($_GET['pt']) && empty($_GET['sl'])){
+		header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/adm/panel.php?pt=1');
+	}
+
 	require_once("../php/connect.php");
 
 	// get all groups & categories existent
@@ -26,7 +30,7 @@
 
 		$gr = '
 			<div class="col-md-12 col-sm-12">
-				<h4>Select which group this post will belong to</h4>
+				<h4> ! Select which group this post will belong to</h4>
 				<div class="form-group">
 					<select name="groups" class="form-control">
 						' . $options_groups . '
@@ -36,7 +40,7 @@
 		';
 		$cat = '
 			<div class="col-md-12 col-sm-12">
-				<h4>Select which category this post will belong to</h4>
+				<h4> ! Select which category this post will belong to</h4>
 				<div class="form-group">
 					<select name="categories" class="form-control">
 						' . $options_categories . '
@@ -46,7 +50,7 @@
 		$desc = '
 			<div class="col-md-12 col-sm-12">
 				<div class="form-group">
-					<textarea name="post_desc" class="form-control" id="" cols="30" rows="15" placeholder="Description"></textarea>
+					<textarea name="post_desc" class="form-control" id="" cols="30" rows="15" placeholder="* Description"></textarea>
 				</div>
 			</div>
 		';
@@ -138,18 +142,14 @@
 		';
 
 	}elseif (isset($_GET['pt'])) {
-
-
-
-
 		$form = '
-			<form action="../php/add_cat.php" method="POST" enctype="multipart/form-data">
+			<form action="../php/add_post.php" method="POST" enctype="multipart/form-data">
 				<div class="row">
 					<h2 class="text-center">ADD POST</h2>
 
 					<div class="col-md-12 col-sm-12">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Title" name="title">
+							<input type="text" class="form-control" placeholder="* Title" name="title">
 						</div>
 					</div>
 					<div class="col-md-12 col-sm-12">
@@ -159,8 +159,9 @@
 					</div>
 
 					<div class="col-md-12 col-sm-12">
+							<h4>!</h4>
 						<div class="form-group">
-							<input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
+							<input type="file" multiple name="fileToUpload[]" id="fileToUpload" class="form-control">
 						</div>
 					</div>
 
@@ -260,6 +261,11 @@
 				<div class="col-md-1">
 					<div class="form-group">
 						<a href="panel.php?pt=1" class="btn btn-primary btn-modify"  style="width:100%;">POST</a>
+					</div>
+				</div>
+				<div class="col-md-1">
+					<div class="form-group">
+						<a href="panel.php?sl=1" class="btn btn-primary btn-modify"  style="width:100%;">SLIDE</a>
 					</div>
 				</div>
 

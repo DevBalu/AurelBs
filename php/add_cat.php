@@ -1,8 +1,8 @@
 <?php 
 	session_start();
-	// if(empty($_SESSION['auth'])){
-	// 	header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/index.php');
-	// }
+	if(empty($_SESSION['auth'])){
+		header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/index.php');
+	}
 
 	require_once("connect.php");
 
@@ -52,10 +52,10 @@
 			//END  image_url
 
 			// query
-			$sql = "INSERT INTO `categories` (`id`, `id_group`, `bg`, `title`, `subtitle`, `location`) VALUES (NULL, '$id_group', '$image_url', '$title', '$subtitle', '$location');";
+			$sql = "INSERT INTO `categories` (`id`, `id_group`, `bg`, `title`, `subtitle`, `location`) VALUES (NULL, '$id_group', '$image_url', '$title', '$subtitle', '$location')";
 			$con->query($sql);
 
-			header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/index.php');
+			header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/adm/panel.php?cat=1');
 		}
 	}/*END of verification if not empty connection*/
 
