@@ -2,11 +2,11 @@
 	session_start();
 
 	if(empty($_SESSION['auth'])){
-		header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/index.php');
+		header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/index.php');
 	}
 
 	if(empty($_GET['gr']) && empty($_GET['cat']) && empty($_GET['pt']) && empty($_GET['sl'])){
-		header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/adm/panel.php?pt=1');
+		header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/adm/panel.php?pt=1');
 	}
 
 	require_once("../php/connect.php");
@@ -33,6 +33,7 @@
 				<h4> ! Select which group this post will belong to</h4>
 				<div class="form-group">
 					<select name="groups" class="form-control">
+						<option value="">Groups : </option>
 						' . $options_groups . '
 					</select>
 				</div>
@@ -43,6 +44,7 @@
 				<h4> ! Select which category this post will belong to</h4>
 				<div class="form-group">
 					<select name="categories" class="form-control">
+						<option value="">Categories : </option>
 						' . $options_categories . '
 					</select>
 				</div>
@@ -227,7 +229,7 @@
 			<div class="container">
 				<div class="top-menu">
 					<div class="row">
-						<div class="col-sm-7 text-right menu-1">
+						<div class="col col-sm-12 col-md-7 text-right">
 							<ul>
 								<li class="active"><a href="../index.php">Home</a></li>
 								<?php print $log; ?>
@@ -265,7 +267,12 @@
 				</div>
 				<div class="col-md-1">
 					<div class="form-group">
-						<a href="panel.php?sl=1" class="btn btn-primary btn-modify"  style="width:100%;">SLIDE</a>
+						<a href="#" class="btn btn-primary btn-modify"  style="width:100%;">SLIDE</a>
+					</div>
+				</div>
+				<div class="col-md-1">
+					<div class="form-group">
+						<a href="#" class="btn btn-primary btn-modify"  style="width:100%;">ABOUT</a>
 					</div>
 				</div>
 

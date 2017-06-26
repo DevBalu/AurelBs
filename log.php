@@ -1,7 +1,7 @@
 <?php 
 	session_start();
 	if(!empty($_SESSION['auth'])){
-		header("Location: /AurelBs/index.php");
+		header("Location:" . $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST'] . '/index.php');
 	}
  ?>
 <!DOCTYPE html>

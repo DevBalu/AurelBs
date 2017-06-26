@@ -1,10 +1,16 @@
 <?php 
+	if(empty($_GET['idg']) && empty($_GET['idc'])){
+		header("Location: /index.php");
+	}
+
+
+
 	session_start();
 	require_once("php/connect.php");
 	if(!empty($_GET['idg'])){
 		$idg = $_GET['idg'];
 	}else {
-		header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/index.php');
+		header("Location:" . $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST'] . '/index.php');
 	}
 
 	// FIRST STEP OF VERIFICATION IN THIS PAGE
@@ -26,7 +32,7 @@
 
 			// if you is autorized can see btn del
 			if(!empty($_SESSION['auth'])){
-				$del_cat = '<a class="btn black" href="php/del_cat.php?idg='  . $idg . '&idc=' . $ct_res->id . '">DEL</a>';
+				$del_cat = '<a class="btn black" href="php/del_cat.php?idg='  . $idg . '&idc=' . $ct_res->id . '">DEL CAT</a>';
 			}else {
 				$del_cat = "";
 			}
@@ -89,8 +95,9 @@
 		$gr_post = $con->query($sql);
 		$nr_gr_post = mysqli_num_rows($gr_post);
 
+
 		if ($nr_gr_post < 1) {
-			header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/index.php');
+			header("Location:" . $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST']);die;
 		}
 
 		if ($nr_gr_post < 2) {
@@ -101,18 +108,36 @@
 			$query_images = $con->query($sql_image);
 			$images = "";
 			while ($row_img = $query_images->fetch_object()) {
+
+				// if you is autorized can see btn del img 
+				// . '&idc=' . $idc .'&idg=' . $idg . '">DEL</a>'
+				if(!empty($_SESSION['auth'])){
+					$del_img = '<a class="btn black" href="php/del_image.php?idi=' . $row_img->id . '&idg=' . $idg . '">DEL IMG</a>';
+				}else {
+					$del_img = "";
+				}
+
 				$images .= '
 						<div class="image-item  animate-box">
+							' . $del_img  . '
 							<img src="' . $row_img->bg. '" class="img-responsive" >
 						</div>';
 			}
 			// END functionals for images
+
+			// if you is autorized can see btn del
+			if(!empty($_SESSION['auth'])){
+				$del_post = '<a class="btn black" href="php/del_post.php?idp=' . $gp->id . '">DEL POST</a>';
+			}else {
+				$del_post = "";
+			}
 
 			// finish result for second step verification
 			$content = '
 					<div id="fh5co-intro">
 						<div class="row animate-box">
 							<div class="col-md-8 col-md-offset-2 col-md-pull-2">
+								' . $del_post . '
 								<h2>' . $gp->title . '</h2>
 							</div>
 						</div>
@@ -141,8 +166,6 @@
 		}
 	}/*END SECOND STEP OF VERIFICATION*/
 
-
-
 	// THIRD STEP OF VERIFICATION
 	// if in href exist id of categori then send request to table post and get all data which have id categories and rewriting variable $content in the following form
 	if(!empty($_GET['idc'])){
@@ -153,7 +176,6 @@
 
 		if ($nr_cat_pos < 1) {
 			print'Data for this category is not was added';die;
-			// header("Location: single.php?idg=" . $idg);
 		}
 
 
@@ -166,26 +188,39 @@
 
 		if ($nr_cat_pos_images > 0) {
 			while ($row_img = $query_cat_pos_images->fetch_object()) {
+				// if you is autorized can see btn del img 
+				if(!empty($_SESSION['auth'])){
+					$del_img = '<a class="btn black" href="php/del_image.php?idi=' . $row_img->id . '&idc=' . $idc .'&idg=' . $idg . '">DEL IMG</a>';
+				}else {
+					$del_img = "";
+				}
 				$cat_pos_images .= '
 						<div class="image-item  animate-box">
+							' . $del_img . '
 							<img src="' . $row_img->bg. '" class="img-responsive" >
 						</div>';
 			}
 		}
 		// END functionals for images
 
-
+		// if you is autorized can see btn del
+		if(!empty($_SESSION['auth'])){
+			$del_post = '<a class="btn black" href="php/del_post.php?idp=' . $cp->id . '">DEL POST</a>';
+		}else {
+			$del_post = "";
+		}
 		// finish result for second step verification
 		$content = '
 				<div id="fh5co-intro">
 					<div class="row animate-box">
 						<div class="col-md-8 col-md-offset-2 col-md-pull-2">
+							' . $del_post . '
 							<h2>' . $cp->title . '</h2>
 						</div>
 					</div>
 				</div>
 				<div id="fh5co-portfolio">
-					<div class="row" style="min-height: 400px;">
+					<div class="row" style="min-height: 450px;">
 						<div class="col-md-4 col-md-push-8 sticky-parent">
 							<div class="detail" id="sticky_item">
 								<div class="animate-box">

@@ -13,11 +13,11 @@
 		if($response['username'] ==  $username && $response['password'] == $password){
 			session_start();
 			$_SESSION['auth'] = true;
-			header('Location: /AurelBs/index.php');
+			header('Location: /index.php');
 		}else{
-			header('Location: /AurelBs/log.php');
+			header('Location: /log.php');
 		}
 	}else{
-		header('Location: /AurelBs/log.php');
+		header('Location: /log.php');
 	}
  ?>

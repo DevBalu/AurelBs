@@ -1,8 +1,9 @@
 <?php 
 	session_start();
 	if(empty($_SESSION['auth'])){
-		header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/index.php');
+		header("Location:" . $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST'] . 'index.php');
 	}
+
 
 	require_once("connect.php");
 
@@ -10,8 +11,9 @@
 		// -------------------ADD DATA IN TABLE POST--------------------------
 		if(!empty($_POST['title']) && !empty($_POST['post_desc']) && !empty($_FILES['fileToUpload'])){
 
-			if (empty($_POST['groups']) && empty($_POST['categories'])) {
-				header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/adm/panel.php');
+			if ($_POST['groups'] == "" && $_POST['categories'] == "") {
+				print "huinea";die;
+				header("Location:" . $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST'] . '/adm/panel.php');
 			}
 
 			// title
@@ -68,7 +70,7 @@
 					// // if not empty name of file, move file select to directori suitable
 					if(!empty($image_name)){
 						move_uploaded_file($tmp_name, $image_name);
-						$image_url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/post_images/' . $img["name"][$key];
+						$image_url = $_SERVER['HTTP_X_FORWARDED_PROTO'] . "://" . $_SERVER['HTTP_HOST'] . '/' . 'post_images/' . $img["name"][$key];
 
 					}else{
 						$image_url = "";
@@ -82,9 +84,11 @@
 
 			}/*END ADD DATA IN TABLE IMAGES*/
 
-		}/*END verif if not empty important fields*/
+			header("Location:" . $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST']);
 
-		header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/single.php?idg=' . $id_gr . '&idc=' . $id_cat);
+		}else {/*END verif if not empty important fields*/
+			header("Location:" . $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST'] . '/adm/panel.php?pt=1');
+		}
+
 	}/*END of verification if not empty connection*/
-
  ?>

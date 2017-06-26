@@ -1,7 +1,7 @@
 <?php 
 	session_start();
 	if(empty($_SESSION['auth'])){
-		header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/index.php');
+		header("Location:" . $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST'] . '/index.php');
 	}
 
 	require_once("connect.php");
@@ -40,7 +40,7 @@
 					// if not empty name of file, move file select to directori suitable
 					if(!empty($_FILES['fileToUpload']['name'])){
 						move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $image_name);
-						$image_url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/post_images/' . $_FILES['fileToUpload']['name'];
+						$image_url = $_SERVER['HTTP_X_FORWARDED_PROTO'] . "://" . $_SERVER['HTTP_HOST'] . '/' . 'post_images/' . $_FILES['fileToUpload']['name'];
 					}else{
 						$image_url = "";
 					}
@@ -52,9 +52,13 @@
 			$sql = "INSERT INTO `groups` (`id`, `bg`, `title`, `subtitle`, `location`) VALUES (NULL, '$image_url', '$title', '$subtitle', '$location');";
 			$con->query($sql);
 
-			header("Location:" . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/AurelBs/index.php');
+			// header("Location: /index.php");
+			header("Location:" . $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST'] . '/index.php');
 		}
 	}/*END of verification if not empty connection*/
+	else {
+		header("Location:" . $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST'] . '/adm/panel.php');
+	}
 
 
 

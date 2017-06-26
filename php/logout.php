@@ -1,5 +1,5 @@
 <?php 
 	session_start();
 	$_SESSION['auth'] = null;
-	header('Location: /AurelBs');
+	header('Location: /index.php');
 ?>
